@@ -2,10 +2,23 @@
 import { handleURL } from "./lib/answears";
 
 export default (req, res) => {
-  console.log("hello");
-  let input =
-    "https://quizizz.com/join/quiz/5ea82420680aa2001bce4dc5/start?studentShare=true";
-  handleURL(input);
+  if (!req.body) {
+    res.statusCode = 204;
+    res.end("Error!");
+    return;
+  }
+
+  const body = req.body;
+  console.log(body.url);
+
+  if (body.url < 10) {
+    res.statusCode = 400;
+    res.end("Link is not valid!");
+    return;
+  }
+
+  handleURL(body.url);
+
   res.statusCode = 200;
-  res.json({ name: "John Doe" });
+  res.json({ status: "success" });
 };
