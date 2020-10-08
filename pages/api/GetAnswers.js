@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { handleURL } from "./lib/answers";
 
 export default (req, res) => {
@@ -17,7 +16,12 @@ export default (req, res) => {
     return;
   }
 
-  handleURL(body.url).then((answers) => console.log(answers));
-  res.statusCode = 200;
-  res.json({ status: "success!" });
+  handleURL(body.url).then((answers) => {
+    console.log(answers);
+    res.statusCode = 200;
+    res.json({
+      status: "success!",
+      data: answers,
+    });
+  });
 };
