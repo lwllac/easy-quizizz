@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { handleURL } from "./lib/answears";
+import { handleURL } from "./lib/answers";
 
 export default (req, res) => {
   if (!req.body) {
@@ -9,7 +9,7 @@ export default (req, res) => {
   }
 
   const body = req.body;
-  console.log(body.url);
+  //console.log(body.url);
 
   if (body.url < 10) {
     res.statusCode = 400;
@@ -17,8 +17,7 @@ export default (req, res) => {
     return;
   }
 
-  handleURL(body.url);
-
+  handleURL(body.url).then((answers) => console.log(answers));
   res.statusCode = 200;
-  res.json({ status: "success" });
+  res.json({ status: "success!" });
 };
