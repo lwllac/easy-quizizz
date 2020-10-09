@@ -6,9 +6,7 @@ export default (req, res) => {
     res.end("Error!");
     return;
   }
-
   const body = req.body;
-  //console.log(body.url);
 
   if (body.url < 10) {
     res.statusCode = 400;

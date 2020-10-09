@@ -51,7 +51,7 @@ async function handleURL(url) {
     });
 }
 async function extractAnswers(hash, type) {
-  let answers = [];
+  let json = [];
   return axios.post("https://game.quizizz.com/play-api/v3/getQuestions", {
     roomHash: hash,
     type: type,
@@ -60,14 +60,15 @@ async function extractAnswers(hash, type) {
     .then((questions) => {
       Object.values(questions).forEach((q) => {
         let answer = decode(q.structure.answer);
-        answers.push(
-          "QUESTION:",
-          q.structure.query.text,
-          "ANSWER:",
-          q.structure.options[answer].text,
+        json.push(
+          {
+            "question": q.structure.query.text,
+            "answer": q.structure.options[answer].text,
+          },
         );
       });
-      return answers;
+      console.log(json);
+      return json;
     }).catch((err) => {
       console.log("There was an error.");
       console.log(err);
