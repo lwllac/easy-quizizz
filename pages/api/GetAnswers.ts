@@ -1,6 +1,6 @@
 import { handleURL } from "./lib/answers";
 
-export default (req, res) => {
+export default async (req, res) => {
   if (!req.body) {
     res.statusCode = 204;
     res.end("Error!");
@@ -12,14 +12,15 @@ export default (req, res) => {
     res.statusCode = 400;
     res.end("Link is not valid!");
     return;
-  }
-
-  handleURL(body.url).then((answers) => {
-    console.log(answers);
-    res.statusCode = 200;
+  } 
+  let data;
+  await handleURL(body.url).then((questions) => {
+    console.log(questions);
+    data = questions;
+  });
+  res.statusCode = 200;
     res.json({
       status: "success!",
-      data: answers,
+      data: data,
     });
-  });
 };
