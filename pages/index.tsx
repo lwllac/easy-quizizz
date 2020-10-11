@@ -3,15 +3,14 @@ import { useState } from "react";
 import styles from "../styles/Home.module.css";
 import { GetStaticProps } from 'next'
 import { useQuery } from 'react-query';
+import { Container, InputGroup, FormControl, Button, Row, Alert } from 'react-bootstrap';
 
 export default function Home() {
   
   const [url, setUrl] = useState<string>('');
 
-  let answers;
   async function getAnswers() {
     try {
-      console.log({url});
       const res = await fetch('/api/GetAnswers', {
        method:'POST',
        body: JSON.stringify({url}),
@@ -19,16 +18,11 @@ export default function Home() {
          'Content-Type': 'application/json'
        }
      })
-     .then(response => response.json())
-     .then(data => answers = data);
-     //console.log(res);
- 
+     .then(response => response.json());
+
      return res;
     }
-    catch {
-      
-    }
-    
+    catch { }
   }
 
   function makeAlert() {
@@ -39,19 +33,28 @@ export default function Home() {
 
   const { data } = useQuery([url], getAnswers)
   return (
-    <div>
-      <form>
-        <input type="text" name="url" placeholder="Paste the quiz url here" onChange={(e) => setUrl(e.target.value)} />
-        <br />
-        <input type="button" value="Get Answers" onClick={()=> {getAnswers(); makeAlert();}} />
-      </form>
+    <Container>
+      <div style={{height: 30}}></div>
+      <InputGroup className="mb-3">
+          <FormControl
+            name = "url"
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="Paste the quiz url here!"
+            aria-label="Paste the quiz url here!"
+            aria-describedby="basic-addon2"
+          />
+          <InputGroup.Append>
+            <Button onClick={()=> {getAnswers(); makeAlert();}} type="button" variant="outline-secondary">Get answers❤️</Button>
+          </InputGroup.Append>
+        </InputGroup>
+
       {data && data.data.map(function(d, idx){
-         return (<li key={idx}>
-           {d.question}
-           <br />
-           {d.answer}
-           </li>)
+         return (
+          <Alert key={idx.key} variant="primary">
+          <h4>Question: {d.question}</h4>
+          <h5>Answer: {d.answer}</h5>
+          </Alert>)
        })}
-    </div>
+    </Container>
   );
 }
