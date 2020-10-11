@@ -1,7 +1,4 @@
-import Head from "next/head";
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
-import { GetStaticProps } from 'next'
 import { useQuery } from 'react-query';
 import { Container, InputGroup, FormControl, Button, Row, Alert } from 'react-bootstrap';
 
