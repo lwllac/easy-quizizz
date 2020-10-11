@@ -1,5 +1,6 @@
 # easy-quizizz
 Quizizz answers web app, written in Next.js
+
 You can test the app [here!](https://easy-quizizz.vercel.app/)
 
 ![](screenshots/screenshot_1.png)
