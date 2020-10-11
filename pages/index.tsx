@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from 'react-query';
 import { Container, InputGroup, FormControl, Button, Row, Alert } from 'react-bootstrap';
+import Head from 'next/head'
 
 export default function Home() {
   
@@ -50,6 +51,9 @@ export default function Home() {
   const { data } = useQuery([url], getAnswers)
   return (
     <Container>
+      <Head>
+        <title>Easy Quizizz</title>
+      </Head>
       <div style={{height: 30}}></div>
       <AlertDismissible />
       <div style={{height: 30}}></div>
