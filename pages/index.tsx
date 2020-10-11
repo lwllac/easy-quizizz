@@ -8,6 +8,7 @@ import { Container, InputGroup, FormControl, Button, Row, Alert } from 'react-bo
 export default function Home() {
   
   const [url, setUrl] = useState<string>('');
+  const [show, setShow] = useState(true);
 
   async function getAnswers() {
     try {
@@ -27,13 +28,33 @@ export default function Home() {
 
   function makeAlert() {
     if(url==""){
-      alert("The url field is empty.")
+     setShow(true);
     }
+  }
+
+  function AlertDismissible() {
+    return (
+      <>
+        <Alert show={show} variant="success">
+          <Alert.Heading>The URL filed is empty!</Alert.Heading>
+          <p>
+            Paste the quiz link and have instant answers!
+          </p>
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => setShow(false)} variant="outline-success">
+              OK!
+            </Button>
+          </div>
+        </Alert>
+      </>
+    );
   }
 
   const { data } = useQuery([url], getAnswers)
   return (
     <Container>
+      <div style={{height: 30}}></div>
+      <AlertDismissible />
       <div style={{height: 30}}></div>
       <InputGroup className="mb-3">
           <FormControl
