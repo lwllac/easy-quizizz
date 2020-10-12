@@ -1,20 +1,24 @@
 import { handleURL } from "./lib/answers";
 
 export default async (req, res) => {
-  if (!req.body) {
+  const {
+    query: { url },
+  } = req
+
+  if (!url) {
     res.statusCode = 204;
     res.end("Error!");
     return;
   }
   const body = req.body;
 
-  if (body.url < 10) {
+  if (url.length < 10) {
     res.statusCode = 400;
     res.end("Link is not valid!");
     return;
-  } 
+  }
   let data;
-  await handleURL(body.url).then((questions) => {
+  await handleURL(url).then((questions) => {
     console.log(questions);
     data = questions;
   });

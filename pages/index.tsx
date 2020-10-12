@@ -10,13 +10,8 @@ export default function Home() {
 
   async function getAnswers() {
     try {
-      const res = await fetch('/api/GetAnswers', {
-       method:'POST',
-       body: JSON.stringify({url}),
-       headers: {
-         'Content-Type': 'application/json'
-       }
-     })
+      const res = await fetch('/api/answers?url=' + url, {
+       method:'GET',})
      .then(response => response.json());
 
      return res;
