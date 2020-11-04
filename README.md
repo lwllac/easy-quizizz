@@ -3,6 +3,9 @@ Quizizz answers web app, written in Next.js
 
 You can test the app [here!](https://easy-quizizz.vercel.app/)
 
+### Disclaimer
+Since Quizizz released new update app doesn't work
+
 ![](screenshots/screenshot_1.png)
 
 ## Contributing
